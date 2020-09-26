@@ -27,15 +27,18 @@ void disableRawMode(){
 int main(){
 
 	atexit(disableRawMode);
-	
+
 	enableRawMode();
 
 	char c;
 
 	while(read(STDIN_FILENO, &c, 1) == 1 && c!='q'){
 
-		printf("%d\n", c);
-
+		if(iscntrl(c)){
+			printf("%d\n", c);
+		} else {
+     		printf("%d ('%c')\n", c, c);
+		}
 	}
 
 }
